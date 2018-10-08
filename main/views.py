@@ -7,7 +7,8 @@ from .models import Save
 from django.shortcuts import get_object_or_404, render
 from .forms import Algoritm
 from django.utils import timezone
-
+from .aesAlgoritm import encryp, decrypt
+#from .tbca import TBCA
 
 """def index(request):
     template = loader.get_template('main/index.html')
@@ -24,15 +25,22 @@ def aes(request):
 			key = form.cleaned_data['key']
 			text = form.cleaned_data['text']
 			algoritm = form.cleaned_data['algoritm']
+			modo = ''
 			# implementar algoritmo
-			print(key, text, algoritm)
-			men = "mensaje"
-			
+			#print(key, text, algoritm)
+			if(algoritm == 'cifrar'):
+				men = encryp(text,key)
+				modo = 'cifrado'
+			else:
+				men = decrypt(text,key)
+				modo = 'decifrado'
+
 			result = {
 				'key': key,
 				'text': text,
 				'algoritm': algoritm,
-				'men': men
+				'men': men,
+				'modo': modo
 			}
 			s = Save(text_plain=text, cipher_text=men, algoritm=1, date=timezone.now())
 			s.save()
@@ -48,15 +56,29 @@ def eoa(request):
 			key = form.cleaned_data['key']
 			text = form.cleaned_data['text']
 			algoritm = form.cleaned_data['algoritm']
+			modo = ''
 			#implementar algoritmo
-			print(key, text, algoritm)
+			#print(key, text, algoritm)
 			men = "mensaje"
+			"""
 			
+			tmca = TBCA()
+			iv = tbca.generarIV()
+			if(algoritm == 'cifrar'):
+				men = tbca.cifrar(text,key,iv)
+				modo = 'cifrado'
+			else:
+				men = tbca.descifrar(text, key,iv)
+				modo = 'decifrado'
+
+			"""
+
 			result = {
 				'key': key,
 				'text': text,
 				'algoritm': algoritm,
-				'men': men
+				'men': men,
+				'modo': modo
 			}
 			s = Save(text_plain=text, cipher_text=men, algoritm=1, date=timezone.now())
 			s.save()

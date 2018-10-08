@@ -34,6 +34,10 @@ body{
 	font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
 	font-size: 20px;
 	text-align: center;
+	width: 700px !important;
+	height: 200px;
+	overflow: scroll;
+	margin-left: 15em;
 }
 
 #key{
